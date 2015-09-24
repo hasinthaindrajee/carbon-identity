@@ -23,6 +23,7 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.owasp.encoder.Encode;
 import org.wso2.carbon.CarbonConstants;
 import org.wso2.carbon.context.CarbonContext;
 import org.wso2.carbon.identity.application.authentication.framework.cache.AuthenticationRequestCacheEntry;
@@ -195,11 +196,11 @@ public class PassiveSTS extends HttpServlet {
         } else {
             finalPage = pageWithReplyActionResultContext.replace("<!--$additionalParams-->",
                     "<input type='hidden' name='AuthenticatedIdPs' value='" +
-                            URLEncoder.encode(authenticatedIdPs, "UTF-8") + "'>");
+                            Encode.forHtmlAttribute(authenticatedIdPs) + "'>");
         }
 
         PrintWriter out = httpResp.getWriter();
-        out.print(finalPage);
+        out.print(Encode.forHtml(finalPage));
 
         if (log.isDebugEnabled()) {
             log.debug("sts_response.html : " + finalPage);
