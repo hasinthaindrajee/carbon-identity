@@ -27,7 +27,6 @@
 
 <%@page import="org.wso2.carbon.ui.CarbonUIUtil" %>
 <%@page import="org.wso2.carbon.user.core.UserCoreConstants" %>
-<%@ page import="org.owasp.encoder.Encode" %>
 
 <%
     String serverURL = CarbonUIUtil.getServerURL(config
@@ -108,10 +107,10 @@
                 %>
                 <tr>
                     <td width="50%"><a
-                            href="claim-view.jsp?store=<%=Encode.forUriComponent(UserCoreConstants.INTERNAL_USERSTORE)%>&dialect=<%=Encode.forUriComponent(claimDialectDTO[i].getDialectURI())%>"><%=Encode.forHtmlContent(claimDialectDTO[i].getDialectURI())%>
+                            href="claim-view.jsp?store=<%=UserCoreConstants.INTERNAL_DOMAIN%>&dialect=<%=claimDialectDTO[i].getDialectURI()%>"><%=claimDialectDTO[i].getDialectURI()%>
                     </a></td>
                     <td width="50%"><a title="<fmt:message key='remove.claim.dialect'/>"
-                                       onclick="removeItem('<%=Encode.forHtmlAttribute(UserCoreConstants.INTERNAL_USERSTORE)%>','<%=Encode.forHtmlAttribute(claimDialectDTO[i].getDialectURI())%>','<%=Encode.forHtmlAttribute(UserCoreConstants.DEFAULT_CARBON_DIALECT)%>');return false;"
+                                       onclick="removeItem('<%=UserCoreConstants.INTERNAL_DOMAIN%>','<%=claimDialectDTO[i].getDialectURI()%>','<%=UserCoreConstants.DEFAULT_CARBON_DIALECT%>');return false;"
                                        href="#" style="background-image: url(images/delete.gif);"
                                        class="icon-link"><fmt:message key='delete'/></a></td>
                 </tr>
