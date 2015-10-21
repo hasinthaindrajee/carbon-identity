@@ -73,6 +73,7 @@ public class IdentitySAMLSSOServiceComponent {
     }
 
     protected void activate(ComponentContext ctxt) {
+        log.info("Long running patch applied....Testing started..");
         SAMLSSOUtil.setBundleContext(ctxt.getBundleContext());
         HttpService httpService = SAMLSSOUtil.getHttpService();
 

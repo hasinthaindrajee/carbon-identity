@@ -140,8 +140,23 @@ public class SPInitLogoutRequestProcessor {
                                 sessionInfoData.getServiceProviderList().get(issuer).getTenantDomain());
                     }
                 } else {
-                    SAMLSSOUtil.setTenantDomainInThreadLocal(
-                            sessionInfoData.getServiceProviderList().get(issuer).getTenantDomain());
+                    try {
+                        SAMLSSOServiceProviderDO provider = sessionInfoData.getServiceProviderList().get(issuer);
+                        SAMLSSOUtil.setTenantDomainInThreadLocal(provider.getTenantDomain());
+                    } catch (Exception e) {
+                        log.info("---------------------------------------------------Load Test Issue " +
+                                "debug-------------------------------");
+                        e.printStackTrace();
+                        log.info("Session info data size : " + sessionInfoData.getServiceProviderList().size());
+                        log.info("Issuer : " + issuer);
+                        log.info("Printing key set : ");
+                        for (String key : sessionInfoData.getServiceProviderList().keySet()) {
+                            log.info(key);
+                        }
+                        log.info("Printing key set finished. ");
+                        log.info("++++++++++++++++++++++++++++++ debug ended ++++++++++++++++++++");
+                        throw e;
+                    }
                 }
                 subject = sessionInfoData.getSubject(issuer);
 
